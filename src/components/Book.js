@@ -1,12 +1,14 @@
 /* eslint-disable */
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { removeBook } from '../redux/reducers/books';
+import { bookRemoved, BOOK_REMOVED } from '../redux/reducers/books';
 import Swal from 'sweetalert2';
 
 const Book = ({ book }) => {
   const dispatch = useDispatch();
+
   const { id, title, author, chapter, completed } = book;
+
   const handleDelete = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -21,16 +23,18 @@ const Book = ({ book }) => {
         title: 'Are you sure?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Delete',
+        confirmButtonText: 'Remove',
         cancelButtonText: 'Cancel',
         reverseButtons: true,
       })
       .then((result) => {
         if (result.isConfirmed) {
-          dispatch(removeBook(id));
+          dispatch(
+            bookRemoved({ actionType: BOOK_REMOVED, actionPayload: id })
+          );
           swalWithBootstrapButtons.fire(
-            'Deleted!',
-            'Book has been deleted.',
+            'Removed!',
+            'Book has been removed.',
             'success'
           );
         } else if (
