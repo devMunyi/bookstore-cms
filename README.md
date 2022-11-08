@@ -1,5 +1,5 @@
 # Bookstore CMS
-This Bookstore CMS is an application built with React & Redux that organizes books by name and category. Bookstore CMS, as it is implemented in React, is a single-page application able to add, remove, display, and select books by category.
+Bookstore CMS is an application that organizes books by name and category. User can add, remove, display, and select books by category.
 
 ## Built With
 
