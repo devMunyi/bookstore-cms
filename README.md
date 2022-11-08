@@ -6,7 +6,7 @@ Bookstore CMS is an application that organizes books by name and category. User 
 - CSS
 - Bootstrap
 - ReactJs
-- REDUX
+- Redux
 
 ## Getting Started
 
