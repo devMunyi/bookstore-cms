@@ -3,7 +3,8 @@ import BooksList from '../components/BooksList';
 import BookInput from '../components/BookInput';
 
 const BooksPage = () => {
-  const books = useSelector((state) => state.books.bookList);
+  const { books } = useSelector((state) => state);
+
   return (
     <div className="page">
       <div>

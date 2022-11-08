@@ -1,10 +1,9 @@
-/* eslint-disable */
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
-import { saveBook } from '../redux/reducers/books';
+import { bookAdded, BOOK_ADDED } from '../redux/reducers/books';
 
 const BookInput = () => {
   const [bookInputs, setBookInputs] = useState({ title: '', author: '' });
@@ -16,7 +15,6 @@ const BookInput = () => {
     });
   };
 
-  // const bookList = useSelector((state) => state.book.bookList);
   const dispatch = useDispatch();
 
   const { title, author } = bookInputs;
@@ -24,14 +22,14 @@ const BookInput = () => {
     e.preventDefault();
 
     if (title.trim().length > 0 && author.trim().length > 0) {
-      const payload = {
+      const book = {
         id: uuidV4(),
         title,
         author,
         completed: '0%',
       };
 
-      dispatch(saveBook(payload));
+      dispatch(bookAdded({ actionType: BOOK_ADDED, actionPayload: book }));
 
       // clear inputs
       setBookInputs({ author: '', title: '' });
@@ -44,9 +42,6 @@ const BookInput = () => {
   return (
     <form className="row g-3">
       <div className="col-md-5">
-        {/* <label htmlFor="inputPassword2" className="visually-hidden">
-          Password
-        </label> */}
         <input
           type="text"
           name="title"
@@ -59,9 +54,6 @@ const BookInput = () => {
         />
       </div>
       <div className="col-md-4">
-        {/* <label htmlFor="bookAuthor" className="visually-hidden">
-          Password
-        </label> */}
         <input
           type="text"
           name="author"

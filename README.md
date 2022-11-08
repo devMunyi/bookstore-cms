@@ -6,9 +6,11 @@ Bookstore CMS is an application that organizes books by name and category. User 
 - CSS
 - Bootstrap
 - ReactJs
-- REDUX
+- Redux
 
 ## Getting Started
+
+### [See Live Demo](https://dev-bookstore-cms.netlify.app/)
 
 To get a local copy up and running follow these simple example steps:
 
