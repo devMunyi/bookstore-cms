@@ -10,8 +10,6 @@ Bookstore CMS is an application that organizes books by name and category. User 
 
 ## Getting Started
 
-### See [Comming Soon]]()
-
 To get a local copy up and running follow these simple example steps:
 
 - Open your terminal or command line
