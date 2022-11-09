@@ -1,13 +1,14 @@
 /* eslint-disable */
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { bookRemoved, BOOK_REMOVED } from '../redux/reducers/books';
+import { removeBook } from '../redux/reducers/books';
 import Swal from 'sweetalert2';
 
 const Book = ({ book }) => {
   const dispatch = useDispatch();
 
-  const { id, title, author, chapter, completed } = book;
+  const { item_id, title, author, chapter = '', completed = '0%' } = book;
+  console.log('item id  :', item_id, 'title : ', title, 'author : ', author);
 
   const handleDelete = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -29,9 +30,7 @@ const Book = ({ book }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          dispatch(
-            bookRemoved({ actionType: BOOK_REMOVED, actionPayload: id })
-          );
+          dispatch(removeBook(id));
           swalWithBootstrapButtons.fire(
             'Removed!',
             'Book has been removed.',
@@ -46,7 +45,7 @@ const Book = ({ book }) => {
       });
   };
   return (
-    <li className="card book-card mt-4 mb-4" key={id}>
+    <li className="card book-card mt-4 mb-4" key={item_id}>
       <div className="row">
         <div className="col-md-5 d-flex flex-wrap">
           <div className="div">
@@ -59,7 +58,7 @@ const Book = ({ book }) => {
               </button>
               |
               <button
-                onClick={() => handleDelete(id)}
+                onClick={() => handleDelete(item_id)}
                 type="button"
                 className="btn btn-outline-primary"
               >
