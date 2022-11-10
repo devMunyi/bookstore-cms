@@ -25,7 +25,7 @@ const Book = ({ book }) => {
   };
 
   const randNum = generateRandNum(0, 100);
-  const randPercent = `${randNum} %`;
+  const randPercent = `${randNum}%`;
 
   const { id, title, author, chapter = '' } = book;
 
@@ -102,10 +102,7 @@ const Book = ({ book }) => {
           >
             <CircularProgressbar value={randNum} />
           </div>
-          <p>
-            {randPercent}
-            Completed
-          </p>
+          <p>{`${randPercent} Completed`} </p>
         </div>
         <div className="col-md-1 d-flex align-items-center">
           <div className="vertical-rule" />
