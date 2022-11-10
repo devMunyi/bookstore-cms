@@ -7,7 +7,6 @@ export const REMOVE_BOOK = 'remove_book';
 export const RETRIEVE_BOOKS = 'retrieve_books';
 
 /* eslint-disable */
-
 // set intial state
 const bookList = [];
 const url =
@@ -23,7 +22,7 @@ const bookReducer = (state = bookList, action) => {
       return [...state, payload.books];
 
     case 'remove_book/fulfilled':
-      return state.filter((item) => item.item_id !== payload.item_id);
+      return state.filter(({ id }) => id !== payload.id);
 
     default:
       return state;
@@ -35,7 +34,7 @@ export const retrieveBooks = createAsyncThunk(RETRIEVE_BOOKS, async () => {
   const resultArray = Object.entries(res.data);
 
   return {
-    books: resultArray.map(([key, value]) => ({ ...value[0], item_id: key })),
+    books: resultArray.map(([key, value]) => ({ ...value[0], id: key })),
   };
 });
 
@@ -52,12 +51,12 @@ export const addBook = createAsyncThunk(ADD_BOOK, async (payload) => {
   };
 });
 
-export const removeBook = createAsyncThunk(REMOVE_BOOK, async (item_id) => {
+export const removeBook = createAsyncThunk(REMOVE_BOOK, async (id) => {
   const res = await axios.delete(
-    `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/TYIw75uEZKdugD202LJP/books/${item_id}`
+    `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/TYIw75uEZKdugD202LJP/books/${id}`
   );
 
-  return { item_id };
+  return { id };
 });
 
 export default bookReducer;
