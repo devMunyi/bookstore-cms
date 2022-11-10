@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuidV4 } from 'uuid';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
-import { bookAdded, BOOK_ADDED } from '../redux/reducers/books';
+import { addBook } from '../redux/reducers/books';
 
 const BookInput = () => {
   const [bookInputs, setBookInputs] = useState({ title: '', author: '' });
@@ -18,7 +18,7 @@ const BookInput = () => {
   const dispatch = useDispatch();
 
   const { title, author } = bookInputs;
-  const addBook = (e) => {
+  const saveBook = (e) => {
     e.preventDefault();
 
     if (title.trim().length > 0 && author.trim().length > 0) {
@@ -26,10 +26,10 @@ const BookInput = () => {
         id: uuidV4(),
         title,
         author,
-        completed: '0%',
+        category: 'Fiction',
       };
 
-      dispatch(bookAdded({ actionType: BOOK_ADDED, actionPayload: book }));
+      dispatch(addBook(book));
 
       // clear inputs
       setBookInputs({ author: '', title: '' });
@@ -67,7 +67,7 @@ const BookInput = () => {
       </div>
       <div className="col-md-3">
         <button
-          onClick={addBook}
+          onClick={saveBook}
           type="submit"
           className="btn btn-primary mb-3 biginput fw-bold"
         >

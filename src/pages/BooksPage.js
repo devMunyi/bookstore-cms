@@ -1,10 +1,16 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import BooksList from '../components/BooksList';
 import BookInput from '../components/BookInput';
+import { retrieveBooks } from '../redux/reducers/books';
 
 const BooksPage = () => {
-  const books = useSelector((state) => state.books);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(retrieveBooks());
+  }, [dispatch]);
 
+  const books = useSelector((state) => state.books);
   return (
     <div className="page">
       <div>
