@@ -1,14 +1,33 @@
-/* eslint-disable */
+import { CircularProgressbar } from 'react-circular-progressbar';
+import Swal from 'sweetalert2';
+import 'react-circular-progressbar/dist/styles.css';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeBook } from '../redux/reducers/books';
-import Swal from 'sweetalert2';
 
+/* eslint-disable */
 const Book = ({ book }) => {
   const dispatch = useDispatch();
 
-  const { item_id, title, author, chapter = '', completed = '0%' } = book;
-  console.log('item id  :', item_id, 'title : ', title, 'author : ', author);
+  // function to generate a random number
+  const generateRandNum = (min, max) => {
+    // hand case where max is 1
+    if (max <= 1) {
+      return Math.random();
+    }
+    // all cases where max is > 1
+
+    // generate random number
+    const randNum = Math.floor(Math.random() * max) + min;
+
+    // return random num
+    return randNum;
+  };
+
+  const randNum = generateRandNum(0, 100);
+  const randPercent = `${randNum} %`;
+
+  const { id, title, author, chapter = '' } = book;
 
   const handleDelete = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -21,11 +40,11 @@ const Book = ({ book }) => {
 
     swalWithBootstrapButtons
       .fire({
-        title: 'Are you sure?',
+        title: 'Are you sure you want to remove?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Remove',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
         reverseButtons: true,
       })
       .then((result) => {
@@ -45,7 +64,7 @@ const Book = ({ book }) => {
       });
   };
   return (
-    <li className="card book-card mt-4 mb-4" key={item_id}>
+    <li className="card book-card mt-4 mb-4" key={id}>
       <div className="row">
         <div className="col-md-5 d-flex flex-wrap">
           <div className="div">
@@ -58,7 +77,7 @@ const Book = ({ book }) => {
               </button>
               |
               <button
-                onClick={() => handleDelete(item_id)}
+                onClick={() => handleDelete(id)}
                 type="button"
                 className="btn btn-outline-primary"
               >
@@ -77,12 +96,16 @@ const Book = ({ book }) => {
             style={{
               width: '80px',
               height: '80px',
-              borderRadius: '50%',
-              border: '4px solid silver',
+              // borderRadius: '50%',
+              // border: '4px solid silver',
             }}
-            className="progress-circle"
-          />
-          <p>{completed} Completed</p>
+          >
+            <CircularProgressbar value={randNum} />
+          </div>
+          <p>
+            {randPercent}
+            Completed
+          </p>
         </div>
         <div className="col-md-1 d-flex align-items-center">
           <div className="vertical-rule" />
